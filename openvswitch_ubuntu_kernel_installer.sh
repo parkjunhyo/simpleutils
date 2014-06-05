@@ -23,12 +23,14 @@ fi
 
 ## installation for the basic packages
 apt-get update
-apt-get install -y git expect python-all python-qt4 python-zopeinterface python-twisted-conch python-simplejson python-twisted-web module-assistant dpkg-dev dpkg gcc uml-utilities libtool build-essential fakeroot graphviz debhelper autoconf automake dkms libssl-dev make po-debconf gettext file debianutils binutils util-linux module-init-tools dbus pkg-config
+apt-get install -y ipsec-tools git expect python-all python-qt4 python-zopeinterface python-twisted-conch python-simplejson python-twisted-web module-assistant dpkg-dev dpkg gcc uml-utilities libtool build-essential fakeroot graphviz debhelper autoconf automake dkms libssl-dev make po-debconf gettext file debianutils binutils util-linux module-init-tools dbus pkg-config
 if [[ ! -f '/etc/racoon/racoon.conf' ]]
 then
  ## create the expect file for racoon installation
  file_name="$current_directory/openvswitch_racoon_installer.exp"
- echo "#! \/usr\/bin\/expect" > $file_name
+ touch $file_name
+ chmod 777 $file_name
+ echo "#! /usr/bin/expect" > $file_name
  echo "spawn bash -c \"apt-get install -y racoon\"" >> $file_name
  echo "expect -re \"<Ok>\"" >> $file_name
  echo "send \"\\r\"" >> $file_name
